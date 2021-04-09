@@ -19,4 +19,10 @@ The game state is then inserted to React state, which renders the component
 ## Preview:
 <img src="./readme/preview.gif" alt="RGB Goals Preview - Insert Goal" width="70%"/>
 
+## Live:
+[https://djangotictactoe.herokuapp.com/](https://djangotictactoe.herokuapp.com/)
+
+Ps: Play with a friend on the same room.
+
+
 
