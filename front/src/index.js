@@ -9,18 +9,20 @@ const Index = (props) => {
     const [matrix, setMatrix] = useState([]);
     const [gameOver, setGameOver] = useState(false);
     const [victory, setVictory] = useState(false);
+    const [tie, setTie] = useState(false);
 
     const uniqueID = () => {
         return (Date.now().toString(36) + Math.random().toString(36).substr(2, 5)).toUpperCase()
     }
 
     const updateStatus = (status) => {
-        const {matrix: __matrix, turn, gameOver: _gameOver, victory: _victory } = status;
+        const {matrix: __matrix, turn, gameOver: _gameOver, victory: _victory, tie: _tie } = status;
         console.log(status);
         setMatrix(__matrix);
         setTurn(turn);
         setGameOver(_gameOver);
         setVictory(_victory);
+        setTie(_tie);
     }
 
     useEffect(() => {
@@ -61,6 +63,7 @@ const Index = (props) => {
     const cellClick = (e, i, j) => {
         if(e.target.value === "") return;
         if(!turn) return;
+        if(gameOver) return;
 
         roomSocket.current.send(JSON.stringify({
             'i': i,
@@ -69,29 +72,29 @@ const Index = (props) => {
     }
 
     return (
-        <div>
-            {!gameOver ?
-                <>
-                    <table>
-                        {matrix.map((row, i) => (
-                            <tr>
-                                {row.map((cell, j) => (
-                                    <Cell 
-                                        onClick={(e) => cellClick(e, i, j)} 
-                                        value={cell}
-                                    />
-                                ))}
-                            </tr>
+        <div className={`content ${gameOver ? tie ? "yellow" : victory ? "green" : "red" : ""}`}>
+            
+            <table className="mb-3">
+                {matrix.map((row, i) => (
+                    <tr>
+                        {row.map((cell, j) => (
+                            <Cell 
+                                onClick={(e) => cellClick(e, i, j)} 
+                                value={cell}
+                            />
                         ))}
-                    </table>
-                    <div>{turn ? "Seu turno" : "Esperar oponente"}</div>
-                </>
-            : (
-                <div>
-                    Fim de Jogo! {victory ? "Você venceu!!" : "Você perdeu!!"}
-                    <button onClick={resetGame}>Jogar novamente</button>
+                    </tr>
+                ))}
+            </table>
+                
+            {!gameOver ?
+                 <div>{turn ? "Seu turno" : "Esperar oponente"}</div>
+            :    <div className="text-center">
+                    <div>Fim de Jogo! {tie ? "Foi um empate." : victory ? "Você venceu :)" : "Você perdeu :("}</div>
+                    <button className="mt-3 btn btn-dark" onClick={resetGame}>Jogar novamente</button>
                 </div>
-            )}
+            }
+
         </div>
     )
 }

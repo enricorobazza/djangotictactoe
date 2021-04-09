@@ -60,10 +60,24 @@ class Game:
         elif value == "O":
             self.victory = self.players[1]
 
+        if not game_end:
+            _game_end = True
+            for i in range(3):
+                for j in range(3):
+                    if self.matrix[i][j] == "":
+                        _game_end = False
+                        break
+            if _game_end:
+                self.victory = "T"
+            game_end = _game_end
+
         self.game_over = game_end
 
 
     def make_move(self, player, i, j):
+        if self.game_over:
+            return False
+
         i = int(i)
         j = int(j)
         if(self.matrix[i][j] != ""):
@@ -105,6 +119,7 @@ class Game:
             'matrix': self.matrix, 
             'gameOver': self.game_over,
             'victory': self.is_player_victorious(player),
+            'tie': self.victory == "T"
         }
 
     def reset(self):

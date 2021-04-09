@@ -4,11 +4,52 @@
 <head>
     <meta charset="utf-8"/>
     <title>TicTacToe Rooms</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+<style>
+    body{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #34495e;
+        color: white;
+        overflow: hidden;
+        flex-direction: column;
+        font-family: 'Poppins';
+    }
+
+    .content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .row{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+</style>
+
 <body>
-    What chat room would you like to enter?<br>
-    <input id="room-name-input" type="text" size="100"><br>
-    <input id="room-name-submit" type="button" value="Enter">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 col-xl-6 content">
+                <h2 class="mb-4">Django Tic Tac Toe</h2>
+                Qual sala você gostaria de entrar?<br>
+                <input placeholder="Digite o nome da sala" class="form-control mt-2" id="room-name-input" type="text" size="100"><br>
+                <button class="btn btn-primary w-100" id="room-name-submit" type="button">Entrar</button>
+            </div>
+        </div>
+        
+    </div>
 
     <script>
         document.querySelector('#room-name-input').focus();

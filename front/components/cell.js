@@ -6,7 +6,11 @@ const Cell = ({value, onClick }) => {
 
     useEffect(() => {
 
-        if(value === "") return;
+        if(value === "") { 
+            cellContainer.current.classList.add('empty');
+            cellContainer.current.innerHTML = value;
+            return;
+        }
 
         if(cellContainer.current.innerHTML === "") {
             cellContainer.current.classList.add('empty');
