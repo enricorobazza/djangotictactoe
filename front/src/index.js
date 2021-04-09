@@ -28,8 +28,10 @@ const Index = (props) => {
     useEffect(() => {
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
         const id = uniqueID();
-        userSocket.current = new WebSocket(`ws://${window.location.host}/ws/me/${id}/`);
-        roomSocket.current = new WebSocket(`ws://${window.location.host}/ws/tictactoe/${roomName}/${id}/`);
+        const ws = window.location.protocol == "https:" ? "wss" : "ws";
+
+        userSocket.current = new WebSocket(`${ws}://${window.location.host}/ws/me/${id}/`);
+        roomSocket.current = new WebSocket(`${ws}://${window.location.host}/ws/tictactoe/${roomName}/${id}/`);
 
         userSocket.current.onmessage = function(e) {
             const data = JSON.parse(e.data);
